@@ -168,3 +168,25 @@ if (
 
 // save button on right, saves text in local storage
 // saved events persist when page is refreshed
+var saveBtn = document.querySelectorAll(".saveBtn");
+var input_textArea = document.querySelector(".description");
+
+savedText();
+
+function savedText() {
+  var text = localStorage.getItem("text");
+  console.log(text);
+  input_textArea.textContent = text;
+  return;
+}
+
+for (var i = 0; i < saveBtn.length; i++) {
+  saveBtn[i].addEventListener("click", function (event) {
+    event.preventDefault();
+    var text = document.querySelector(".description").value;
+
+    localStorage.setItem("text", text);
+
+    savedText();
+  });
+}
