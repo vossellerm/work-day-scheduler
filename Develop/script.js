@@ -175,9 +175,8 @@ savedText();
 
 function savedText() {
   var text = localStorage.getItem("text");
-  console.log(text);
+
   input_textArea.textContent = text;
-  return;
 }
 
 for (var i = 0; i < saveBtn.length; i++) {
