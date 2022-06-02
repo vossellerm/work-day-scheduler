@@ -6,7 +6,16 @@ var date = new Date();
 var reformDate = moment(date, "ddd MMM DD YYYY kk:mm:ss zz").format(
   "dddd, MMMM Do"
 );
+console.log(reformDate);
+
 currentDay.textContent = reformDate;
+
+console.log(moment(date, "ddd MMM DD YYYY kk:mm:ss zz").format("h A"));
+console.log(moment().hour(9).format("h A"));
+
+reformDate = moment(date, "ddd MMM DD YYYY kk:mm:ss zz").format("H");
+
+console.log(reformDate);
 
 // time blocks for standard business hours (9am-pm)
 // IF past, grey
@@ -17,12 +26,16 @@ currentDay.textContent = reformDate;
 var hour9 = document.getElementById("hour-9");
 var text9 = hour9.getElementsByTagName("textarea");
 
-hour9.firstElementChild.textContent = moment().hour(9).format("h A");
+console.log(hour9);
 
-if (
-  moment().hour(9).format("h A") ===
-  moment(date, "ddd MMM DD YYYY kk:mm:ss zz").format("h A")
-) {
+hour9.firstElementChild.textContent = moment().hour(9).format("h A");
+// convert time string to number
+hour9 = moment().hour(9).format("H");
+
+console.log(hour9);
+console.log(typeof hour9);
+
+if (hour9 === reformDate) {
   $(text9).addClass("present");
 } else if (hour9 > reformDate) {
   $(text9).addClass("past");
@@ -37,7 +50,7 @@ var text10 = hour10.getElementsByTagName("textarea");
 hour10.firstElementChild.textContent = moment().hour(10).format("h A");
 
 if (
-  moment().hour(9).format("h A") ===
+  moment().hour(10).format("h A") ===
   moment(date, "ddd MMM DD YYYY kk:mm:ss zz").format("h A")
 ) {
   $(text10).addClass("present");
@@ -60,7 +73,7 @@ if (
   $(text11).addClass("present");
 } else if (hour11 > reformDate) {
   $(text11).addClass("past");
-} else {
+} else if (hour11 < reformDate) {
   $(text11).addClass("future");
 }
 
@@ -180,12 +193,11 @@ function savedText() {
 }
 
 for (var i = 0; i < saveBtn.length; i++) {
-  saveBtn[i].addEventListener("click", function (event) {
-    event.preventDefault();
-    var text = document.querySelector(".description").value;
-
-    localStorage.setItem("text", text);
-
-    savedText();
+  saveBtn[i].addEventListener("click", function () {
+    // get the button user clicked
+    // traverse to parent to get hour id
+    // traverse to previous siblig to get value of textarea
+    // update local storage using hour id as the key
+    // key will be a variable unique to each hour id
   });
 }
